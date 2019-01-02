@@ -46,6 +46,7 @@ public class DungeonGenerator implements IWorldGenerator {
 
 	public static final ResourceLocation STAIRS = new ResourceLocation("dungeonmod", "dungeon/dp_stairs");
 	public static final ResourceLocation ENTRANCE_GOLD = new ResourceLocation("dungeonmod", "dungeon/dp_entrance_gold");
+	public static final ResourceLocation DOWNSTEP = new ResourceLocation("dungeonmod", "dungeon/dp_downlevel");
 
 	public static Map<String, Integer> chances = new HashMap<String, Integer>();
 
@@ -362,9 +363,32 @@ public class DungeonGenerator implements IWorldGenerator {
 				} else if (choice < (chances.get("hallway") + chances.get("end"))) {
 					if (debug)
 						System.out.println("Ending.");
-					template = world.getStructureTemplateManager().getTemplate(server,
-							end.get(random.nextInt(end.size())));
-					continueGen = false;
+
+					switch (random.nextInt(5)) {
+					case 0:
+					case 1:
+					case 2:
+					case 3:
+						template = world.getStructureTemplateManager().getTemplate(server,
+								end.get(random.nextInt(end.size())));
+						break;
+					case 4:
+						template = world.getStructureTemplateManager().getTemplate(server, DOWNSTEP);
+						copyPos = copyPos.add(0, -6, 0);
+						rooms.add(copyPos);
+						if (direction == 1)
+							direction = 3;
+						else if (direction == 3)
+							direction = 1;
+						else if (direction == 2)
+							direction = 4;
+						else if (direction == 4)
+							direction = 2;
+						branch(world, random, pos.add(0, -6, 0), direction, length, corners);
+						break;
+
+					}
+
 				} else if (choice < (chances.get("hallway") + chances.get("end") + chances.get("corner_left"))) {
 					if (debug)
 						System.out.println("Right Corner.");
