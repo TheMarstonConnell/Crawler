@@ -34,7 +34,7 @@ public class ClientProxy extends CommonProxy {
 			MinecraftForge.EVENT_BUS.unregister(this);
 
 			event.player.sendMessage(new TextComponentString(TextFormatting.GOLD
-					+ "Thank you for installing Dungeon Mod by milomaz1, follow me on twitter @MarstonConnell for updates!"));
+					+ "Thank you for installing Crawler by milomaz1, follow me on twitter @MarstonConnell for updates!"));
 			event.player.playSound(SoundEvents.ENTITY_PLAYER_LEVELUP, 2.5F, 1.0F);
 		}
 
