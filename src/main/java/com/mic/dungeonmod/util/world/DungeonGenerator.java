@@ -41,6 +41,7 @@ public class DungeonGenerator implements IWorldGenerator {
 	public static List<ResourceLocation> corner_left;
 	public static List<ResourceLocation> corner_right;
 	public static List<ResourceLocation> t_split;
+	public static List<ResourceLocation> threeway;
 
 	boolean debug = false;
 
@@ -58,12 +59,14 @@ public class DungeonGenerator implements IWorldGenerator {
 		corner_left = new ArrayList<ResourceLocation>();
 		corner_right = new ArrayList<ResourceLocation>();
 		t_split = new ArrayList<ResourceLocation>();
+		threeway = new ArrayList<ResourceLocation>();
 
 		chances.put("hallway", 25);
 		chances.put("end", 15);
 		chances.put("corner_left", 10);
 		chances.put("corner_right", 10);
 		chances.put("t_split", 8);
+		chances.put("threeway", 1);
 
 		InputStream stream = this.getClass().getClassLoader()
 				.getResourceAsStream("assets/dungeonmod/structures/dungeon/center");
@@ -141,6 +144,18 @@ public class DungeonGenerator implements IWorldGenerator {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		stream = this.getClass().getClassLoader().getResourceAsStream("assets/dungeonmod/structures/dungeon/threeway");
+		reader = new BufferedReader(new InputStreamReader(stream));
+		try {
+			while (reader.ready()) {
+				String e = reader.readLine();
+				threeway.add(new ResourceLocation("dungeonmod", "dungeon/threeway/" + e.replaceAll(".nbt", "")));
+				System.out.println(e);
+			}
+			reader.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
 		// File f = new File("assets/dungeonmod/structures/dungeon");
 		// System.out.println(f.getAbsolutePath().toString());
@@ -175,8 +190,8 @@ public class DungeonGenerator implements IWorldGenerator {
 			 */
 			public void generateDungeon(WorldServer world, Random random, BlockPos pos) {
 
-//				if (debug)
-					System.out.println("Generating a dungeon at " + pos + "...");
+				// if (debug)
+				System.out.println("Generating a dungeon at " + pos + "...");
 				rooms.add(pos);
 				BlockPos middle = pos.add(0, 5, 0);
 
@@ -198,7 +213,8 @@ public class DungeonGenerator implements IWorldGenerator {
 
 				int i = 0;
 				// || pos.getY() < 62
-				while ((!world.getBlockState(pos.add(-3, 6 + i, -3)).getBlock().equals(Blocks.AIR)) && (pos.add(-3, 6 + i, -3).getY() < 62)) {
+				while ((!world.getBlockState(pos.add(-3, 6 + i, -3)).getBlock().equals(Blocks.AIR))
+						&& (pos.add(-3, 6 + i, -3).getY() < 62)) {
 					template.addBlocksToWorld(world, pos.add(-3, 6 + i, -3), settings); // centers placement
 					i += 6;
 				}
@@ -234,9 +250,6 @@ public class DungeonGenerator implements IWorldGenerator {
 				MinecraftServer server = world.getMinecraftServer();
 				Template template = null;
 
-				boolean continueGen = true; // for endings
-				int turnChange = 0; // for corners
-
 				// int choice = random.nextInt(6); // 4 for no corners, 6 for corners
 
 				int choice = 0;
@@ -246,6 +259,7 @@ public class DungeonGenerator implements IWorldGenerator {
 				total += chances.get("corner_left");
 				total += chances.get("corner_right");
 				total += chances.get("t_split");
+				total += chances.get("threeway");
 
 				choice = random.nextInt(total);
 
@@ -410,8 +424,19 @@ public class DungeonGenerator implements IWorldGenerator {
 							t_split.get(random.nextInt(t_split.size())));
 					// turnChange = -1;
 					// corners = corners - 1;
-					branch(world, random, pos, direction - 1, length + 1, corners);
-					branch(world, random, pos, direction + 1, length + 1, corners);
+					branch(world, random, pos, direction - 1, length + 1, corners - 1);
+					branch(world, random, pos, direction + 1, length + 1, corners + 1);
+				} else if (choice < (chances.get("hallway") + chances.get("end") + chances.get("corner_left")
+						+ chances.get("corner_right") + chances.get("t_split") + chances.get("threeway"))) {
+//					if (debug)
+						System.out.println("Threeway");
+					template = world.getStructureTemplateManager().getTemplate(server,
+							threeway.get(random.nextInt(threeway.size())));
+					// turnChange = -1;
+					// corners = corners - 1;
+					branch(world, random, pos, direction - 1, length + 1, corners - 1);
+					branch(world, random, pos, direction, length + 1, corners);
+					branch(world, random, pos, direction + 1, length + 1, corners + 1);
 				}
 
 				template.addBlocksToWorld(world, copyPos, settings);
