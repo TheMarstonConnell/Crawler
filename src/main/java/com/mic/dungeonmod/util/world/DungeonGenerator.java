@@ -68,108 +68,169 @@ public class DungeonGenerator implements IWorldGenerator {
 		chances.put("t_split", 8);
 		chances.put("threeway", 1);
 
-		InputStream stream = this.getClass().getClassLoader()
-				.getResourceAsStream("assets/dungeonmod/structures/dungeon/center");
-		BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
-		try {
-			while (reader.ready()) {
-				String e = reader.readLine();
-				center.add(new ResourceLocation("dungeonmod", "dungeon/center/" + e.replaceAll(".nbt", "")));
-				System.out.println(e);
-			}
-			reader.close();
-		} catch (IOException e) {
-			e.printStackTrace();
+
+		center.add(new ResourceLocation("dungeonmod", "dungeon/center/dp_center_basic"));
+		center.add(new ResourceLocation("dungeonmod", "dungeon/center/dp_center_carpet"));
+		center.add(new ResourceLocation("dungeonmod", "dungeon/center/dp_center_old"));
+		center.add(new ResourceLocation("dungeonmod", "dungeon/center/dp_center_smith"));
+		center.add(new ResourceLocation("dungeonmod", "dungeon/center/dp_center_templar"));
+		center.add(new ResourceLocation("dungeonmod", "dungeon/center/dp_center_thin"));
+		
+		hallway.add(new ResourceLocation("dungeonmod", "dungeon/hall/dp_hallway_bone"));
+		hallway.add(new ResourceLocation("dungeonmod", "dungeon/hall/dp_hallway_brewing"));
+		hallway.add(new ResourceLocation("dungeonmod", "dungeon/hall/dp_hallway_clean"));
+		hallway.add(new ResourceLocation("dungeonmod", "dungeon/hall/dp_hallway_cracked"));
+		hallway.add(new ResourceLocation("dungeonmod", "dungeon/hall/dp_hallway_kitchen"));
+		hallway.add(new ResourceLocation("dungeonmod", "dungeon/hall/dp_hallway_prison"));
+		hallway.add(new ResourceLocation("dungeonmod", "dungeon/hall/dp_hallway_square"));
+		hallway.add(new ResourceLocation("dungeonmod", "dungeon/hall/dp_hallway_storage"));
+		hallway.add(new ResourceLocation("dungeonmod", "dungeon/hall/dp_hallway_tnt"));
+		hallway.add(new ResourceLocation("dungeonmod", "dungeon/hall/dp_hallway_trap"));
+		hallway.add(new ResourceLocation("dungeonmod", "dungeon/hall/dp_hallway_treasure"));
+		hallway.add(new ResourceLocation("dungeonmod", "dungeon/hall/dp_hallway_webs"));
+		hallway.add(new ResourceLocation("dungeonmod", "dungeon/hall/dp_hallway_white"));
+
+		end.add(new ResourceLocation("dungeonmod", "dungeon/end/dp_end_clean"));
+		end.add(new ResourceLocation("dungeonmod", "dungeon/end/dp_end_enchanting"));
+		end.add(new ResourceLocation("dungeonmod", "dungeon/end/dp_end_gold"));
+		end.add(new ResourceLocation("dungeonmod", "dungeon/end/dp_end_maze"));
+		end.add(new ResourceLocation("dungeonmod", "dungeon/end/dp_end_nether"));
+		end.add(new ResourceLocation("dungeonmod", "dungeon/end/dp_end_ore"));
+		end.add(new ResourceLocation("dungeonmod", "dungeon/end/dp_end_skullsword"));
+		end.add(new ResourceLocation("dungeonmod", "dungeon/end/dp_end_tnt_trap"));
+		end.add(new ResourceLocation("dungeonmod", "dungeon/end/dp_end_totem"));
+
+		threeway.add(new ResourceLocation("dungeonmod", "dungeon/threeway/dp_threeway_clean"));
+		
+		t_split.add(new ResourceLocation("dungeonmod", "dungeon/tsplit/dp_tsplit_sign"));
+		t_split.add(new ResourceLocation("dungeonmod", "dungeon/tsplit/dp_tsplit_spawner"));
+		t_split.add(new ResourceLocation("dungeonmod", "dungeon/tsplit/dp_tsplit_tnt"));
+
+		corner_left.add(new ResourceLocation("dungeonmod", "dungeon/corner/left/dp_corner_left_carpet"));
+		corner_left.add(new ResourceLocation("dungeonmod", "dungeon/corner/left/dp_corner_left_clean"));
+		corner_left.add(new ResourceLocation("dungeonmod", "dungeon/corner/left/dp_corner_left_cracked"));
+		corner_left.add(new ResourceLocation("dungeonmod", "dungeon/corner/left/dp_corner_left_gate"));
+		corner_left.add(new ResourceLocation("dungeonmod", "dungeon/corner/left/dp_corner_left_old"));
+		corner_left.add(new ResourceLocation("dungeonmod", "dungeon/corner/left/dp_corner_left_spawner"));
+
+		corner_right.add(new ResourceLocation("dungeonmod", "dungeon/corner/right/dp_corner_right_bars"));
+		corner_right.add(new ResourceLocation("dungeonmod", "dungeon/corner/right/dp_corner_right_clean"));
+		corner_right.add(new ResourceLocation("dungeonmod", "dungeon/corner/right/dp_corner_right_cracked"));
+		corner_right.add(new ResourceLocation("dungeonmod", "dungeon/corner/right/dp_corner_right_greek"));
+		corner_right.add(new ResourceLocation("dungeonmod", "dungeon/corner/right/dp_corner_right_spawner"));
+
+		
+		for(int x = 0; x < center.size(); x ++) {
+			System.out.println(center.get(x));
 		}
-		stream = this.getClass().getClassLoader().getResourceAsStream("assets/dungeonmod/structures/dungeon/hall");
-		reader = new BufferedReader(new InputStreamReader(stream));
-		try {
-			while (reader.ready()) {
-				String e = reader.readLine();
-				hallway.add(new ResourceLocation("dungeonmod", "dungeon/hall/" + e.replaceAll(".nbt", "")));
-				System.out.println(e);
-			}
-			reader.close();
-		} catch (IOException e) {
-			e.printStackTrace();
+		for(int x = 0; x < hallway.size(); x ++) {
+			System.out.println(hallway.get(x));
 		}
-		stream = this.getClass().getClassLoader().getResourceAsStream("assets/dungeonmod/structures/dungeon/end");
-		reader = new BufferedReader(new InputStreamReader(stream));
-		try {
-			while (reader.ready()) {
-				String e = reader.readLine();
-				end.add(new ResourceLocation("dungeonmod", "dungeon/end/" + e.replaceAll(".nbt", "")));
-				System.out.println(e);
-			}
-			reader.close();
-		} catch (IOException e) {
-			e.printStackTrace();
+		for(int x = 0; x < end.size(); x ++) {
+			System.out.println(end.get(x));
 		}
-		stream = this.getClass().getClassLoader()
-				.getResourceAsStream("assets/dungeonmod/structures/dungeon/corner/right");
-		reader = new BufferedReader(new InputStreamReader(stream));
-		try {
-			while (reader.ready()) {
-				String e = reader.readLine();
-				corner_right
-						.add(new ResourceLocation("dungeonmod", "dungeon/corner/right/" + e.replaceAll(".nbt", "")));
-				System.out.println(e);
-			}
-			reader.close();
-		} catch (IOException e) {
-			e.printStackTrace();
+		for(int x = 0; x < corner_right.size(); x ++) {
+			System.out.println(corner_right.get(x));
 		}
-		stream = this.getClass().getClassLoader()
-				.getResourceAsStream("assets/dungeonmod/structures/dungeon/corner/left");
-		reader = new BufferedReader(new InputStreamReader(stream));
-		try {
-			while (reader.ready()) {
-				String e = reader.readLine();
-				corner_left.add(new ResourceLocation("dungeonmod", "dungeon/corner/left/" + e.replaceAll(".nbt", "")));
-				System.out.println(e);
-			}
-			reader.close();
-		} catch (IOException e) {
-			e.printStackTrace();
+		for(int x = 0; x < corner_left.size(); x ++) {
+			System.out.println(corner_left.get(x));
 		}
-		stream = this.getClass().getClassLoader().getResourceAsStream("assets/dungeonmod/structures/dungeon/tsplit");
-		reader = new BufferedReader(new InputStreamReader(stream));
-		try {
-			while (reader.ready()) {
-				String e = reader.readLine();
-				t_split.add(new ResourceLocation("dungeonmod", "dungeon/tsplit/" + e.replaceAll(".nbt", "")));
-				System.out.println(e);
-			}
-			reader.close();
-		} catch (IOException e) {
-			e.printStackTrace();
+		for(int x = 0; x < t_split.size(); x ++) {
+			System.out.println(t_split.get(x));
 		}
-		stream = this.getClass().getClassLoader().getResourceAsStream("assets/dungeonmod/structures/dungeon/threeway");
-		reader = new BufferedReader(new InputStreamReader(stream));
-		try {
-			while (reader.ready()) {
-				String e = reader.readLine();
-				threeway.add(new ResourceLocation("dungeonmod", "dungeon/threeway/" + e.replaceAll(".nbt", "")));
-				System.out.println(e);
-			}
-			reader.close();
-		} catch (IOException e) {
-			e.printStackTrace();
+		for(int x = 0; x < threeway.size(); x ++) {
+			System.out.println(threeway.get(x));
 		}
 
-		// File f = new File("assets/dungeonmod/structures/dungeon");
-		// System.out.println(f.getAbsolutePath().toString());
-		// File centers = new File(f.getPath().toString() + "/center");
-		// ArrayList<String> names = new
-		// ArrayList<String>(Arrays.asList(centers.list()));
-		// for(int x = 0; x < names.size(); x ++) {
-		// center.add(new ResourceLocation("dungeonmod", "dungeon/" +
-		// names.get(x).replaceAll(".nbt", "")));
-		// }
-		//
-		// for(int x = 0; x < center.size(); x ++) {
-		// System.out.println(center.get(x));
-		// }
+//		InputStream stream = this.getClass().getClassLoader()
+//				.getResourceAsStream("assets/dungeonmod/structures/dungeon/center");
+//		BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+//		try {
+//			while (reader.ready()) {
+//				String e = reader.readLine();
+//				center.add(new ResourceLocation("dungeonmod", "dungeon/center/" + e.replaceAll(".nbt", "")));
+//				System.out.println(e);
+//			}
+//			reader.close();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		stream = this.getClass().getClassLoader().getResourceAsStream("assets/dungeonmod/structures/dungeon/hall");
+//		reader = new BufferedReader(new InputStreamReader(stream));
+//		try {
+//			while (reader.ready()) {
+//				String e = reader.readLine();
+//				hallway.add(new ResourceLocation("dungeonmod", "dungeon/hall/" + e.replaceAll(".nbt", "")));
+//				System.out.println(e);
+//			}
+//			reader.close();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		stream = this.getClass().getClassLoader().getResourceAsStream("assets/dungeonmod/structures/dungeon/end");
+//		reader = new BufferedReader(new InputStreamReader(stream));
+//		try {
+//			while (reader.ready()) {
+//				String e = reader.readLine();
+//				end.add(new ResourceLocation("dungeonmod", "dungeon/end/" + e.replaceAll(".nbt", "")));
+//				System.out.println(e);
+//			}
+//			reader.close();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		stream = this.getClass().getClassLoader()
+//				.getResourceAsStream("assets/dungeonmod/structures/dungeon/corner/right");
+//		reader = new BufferedReader(new InputStreamReader(stream));
+//		try {
+//			while (reader.ready()) {
+//				String e = reader.readLine();
+//				corner_right
+//						.add(new ResourceLocation("dungeonmod", "dungeon/corner/right/" + e.replaceAll(".nbt", "")));
+//				System.out.println(e);
+//			}
+//			reader.close();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		stream = this.getClass().getClassLoader()
+//				.getResourceAsStream("assets/dungeonmod/structures/dungeon/corner/left");
+//		reader = new BufferedReader(new InputStreamReader(stream));
+//		try {
+//			while (reader.ready()) {
+//				String e = reader.readLine();
+//				corner_left.add(new ResourceLocation("dungeonmod", "dungeon/corner/left/" + e.replaceAll(".nbt", "")));
+//				System.out.println(e);
+//			}
+//			reader.close();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		stream = this.getClass().getClassLoader().getResourceAsStream("assets/dungeonmod/structures/dungeon/tsplit");
+//		reader = new BufferedReader(new InputStreamReader(stream));
+//		try {
+//			while (reader.ready()) {
+//				String e = reader.readLine();
+//				t_split.add(new ResourceLocation("dungeonmod", "dungeon/tsplit/" + e.replaceAll(".nbt", "")));
+//				System.out.println(e);
+//			}
+//			reader.close();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		stream = this.getClass().getClassLoader().getResourceAsStream("assets/dungeonmod/structures/dungeon/threeway");
+//		reader = new BufferedReader(new InputStreamReader(stream));
+//		try {
+//			while (reader.ready()) {
+//				String e = reader.readLine();
+//				threeway.add(new ResourceLocation("dungeonmod", "dungeon/threeway/" + e.replaceAll(".nbt", "")));
+//				System.out.println(e);
+//			}
+//			reader.close();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+
 
 	}
 
@@ -387,9 +448,14 @@ public class DungeonGenerator implements IWorldGenerator {
 					if (choice < chances.get("hallway")) {
 						if (debug)
 							System.out.println("Hallway");
+						
+						int a = random.nextInt(hallway.size());
+						System.out.println(a);
 						template = world.getStructureTemplateManager().getTemplate(server,
-								hallway.get(random.nextInt(hallway.size())));
+								hallway.get(a));
 
+						
+						
 						branch(world, random, pos, direction, length + 1, corners);
 					} else if (choice < (chances.get("hallway") + chances.get("end"))) {
 						if (debug)
@@ -453,6 +519,8 @@ public class DungeonGenerator implements IWorldGenerator {
 						branch(world, random, pos, direction - 1, length + 1, corners - 1);
 						branch(world, random, pos, direction, length + 1, corners);
 						branch(world, random, pos, direction + 1, length + 1, corners + 1);
+					}else {
+						System.out.println("Failed");
 					}
 				}
 				template.addBlocksToWorld(world, copyPos, settings);
