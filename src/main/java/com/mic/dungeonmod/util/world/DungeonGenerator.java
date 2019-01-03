@@ -59,8 +59,8 @@ public class DungeonGenerator implements IWorldGenerator {
 		corner_right = new ArrayList<ResourceLocation>();
 		t_split = new ArrayList<ResourceLocation>();
 
-		chances.put("hallway", 30);
-		chances.put("end", 10);
+		chances.put("hallway", 25);
+		chances.put("end", 15);
 		chances.put("corner_left", 10);
 		chances.put("corner_right", 10);
 		chances.put("t_split", 6);
@@ -175,7 +175,7 @@ public class DungeonGenerator implements IWorldGenerator {
 			 */
 			public void generateDungeon(WorldServer world, Random random, BlockPos pos) {
 
-				if (debug)
+//				if (debug)
 					System.out.println("Generating a dungeon at " + pos + "...");
 				rooms.add(pos);
 				BlockPos middle = pos.add(0, 5, 0);
@@ -197,7 +197,8 @@ public class DungeonGenerator implements IWorldGenerator {
 				template = world.getStructureTemplateManager().getTemplate(server, STAIRS);
 
 				int i = 0;
-				while (!world.getBlockState(pos.add(-3, 6 + i, -3)).getBlock().equals(Blocks.AIR) || pos.getY() < 62) {
+				// || pos.getY() < 62
+				while ((!world.getBlockState(pos.add(-3, 6 + i, -3)).getBlock().equals(Blocks.AIR)) && pos.getY() > 62) {
 					template.addBlocksToWorld(world, pos.add(-3, 6 + i, -3), settings); // centers placement
 					i += 6;
 				}
@@ -364,7 +365,7 @@ public class DungeonGenerator implements IWorldGenerator {
 					if (debug)
 						System.out.println("Ending.");
 
-					if (random.nextInt(10) == 0) {
+					if (random.nextInt(14) == 0) {
 						template = world.getStructureTemplateManager().getTemplate(server, DOWNSTEP);
 						copyPos = copyPos.add(0, -6, 0);
 						rooms.add(copyPos);
@@ -443,7 +444,7 @@ public class DungeonGenerator implements IWorldGenerator {
 				//
 				// return blockpos;
 
-				int yPos = random.nextInt(30) + 20;
+				int yPos = random.nextInt(30) + 30;
 
 				pos = pos.add(0, yPos, 0);
 
