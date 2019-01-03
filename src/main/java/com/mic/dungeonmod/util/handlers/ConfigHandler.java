@@ -10,6 +10,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 public class ConfigHandler {
 	public static Configuration config;
 	public static int dungeonChance = 0;
+	public static boolean startupMessage = true;
 	
 public static void init(File file){
 		
@@ -17,10 +18,10 @@ public static void init(File file){
 		String category;
 		
 		//Drop chances
-		category = "Dungeon Rates";
+		category = "Crawler Config";
 		
 		dungeonChance = config.getInt("Dungeon Spawn Rate", category, 5, 0, 100, "0 for never & 100 for a lot");
-		
+		startupMessage = config.getBoolean("Start-Up Message?", category, true, "Give a start-up thank you?");
 		
 		config.save();
 		

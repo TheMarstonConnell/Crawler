@@ -1,5 +1,7 @@
 package com.mic.dungeonmod.proxy;
 
+import com.mic.dungeonmod.util.handlers.ConfigHandler;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.resources.I18n;
@@ -19,23 +21,23 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 public class ClientProxy extends CommonProxy {
-	
+
 	@Override
 	public void registerItemRenderer(Item item, int meta, String id) {
 
 		ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(item.getRegistryName(), id));
 	}
-	
-	
+
 	@SubscribeEvent
 	public void onPlayerJoin(TickEvent.PlayerTickEvent event) {
-		System.out.println("Player Joined, sending wlecome message.");
+
 		if (event.player.world.isRemote && event.player == FMLClientHandler.instance().getClientPlayerEntity()) {
 			MinecraftForge.EVENT_BUS.unregister(this);
-
-			event.player.sendMessage(new TextComponentString(TextFormatting.GOLD
-					+ "Thank you for installing Crawler by milomaz1, follow me on twitter @MarstonConnell for updates!"));
-			event.player.playSound(SoundEvents.ENTITY_PLAYER_LEVELUP, 2.5F, 1.0F);
+			if (ConfigHandler.startupMessage) {
+				event.player.sendMessage(new TextComponentString(TextFormatting.GOLD
+						+ "Thank you for installing Crawler by milomaz1, follow me on twitter @MarstonConnell for updates!"));
+				event.player.playSound(SoundEvents.ENTITY_PLAYER_LEVELUP, 2.5F, 1.0F);
+			}
 		}
 
 	}
@@ -45,13 +47,11 @@ public class ClientProxy extends CommonProxy {
 		return I18n.format(unlocalized, args);
 	}
 
-
-
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
 		MinecraftForge.EVENT_BUS.register(this);
 		System.out.println("PreInit Success");
-		//		ModItems.registerModels();
+		// ModItems.registerModels();
 
 	}
 }

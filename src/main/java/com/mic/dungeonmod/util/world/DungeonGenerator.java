@@ -416,8 +416,8 @@ public class DungeonGenerator implements IWorldGenerator {
 				template.addBlocksToWorld(world, copyPos, settings);
 
 				rooms.add(pos);
-
-				System.out.println("Size of maze = " + rooms.size());
+				if (debug)
+					System.out.println("Size of maze = " + rooms.size());
 
 				// if (continueGen) {
 				// branch(world, random, pos, direction + turnChange, length + 1, corners);
