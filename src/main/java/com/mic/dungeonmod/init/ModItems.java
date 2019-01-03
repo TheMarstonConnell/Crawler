@@ -9,6 +9,7 @@ import com.mic.dungeonmod.DungeonMod;
 import com.mic.dungeonmod.items.ItemBase;
 import com.mic.dungeonmod.items.SwordItem;
 
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemSword;
@@ -16,6 +17,7 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.util.EnumHelper;
 
 
@@ -24,8 +26,9 @@ public class ModItems {
 	
 	public static final List<Item> ITEMS = new ArrayList<Item>();
 	
-	public static final ItemSword sword = new SwordItem("skull_sword", EnumHelper.addToolMaterial("material_skull", 3, 1561, 8.0f, 4.5f, 10));
-	
+	public static final ItemSword SkullSword = new SwordItem("skull_sword", EnumHelper.addToolMaterial("material_skull", 3, 1561, 8.0f, 4.5f, 10));
+	public static final ItemSword Lancer = new SwordItem("lancer", EnumHelper.addToolMaterial("material_lancer", 3, 2000, 8.0f, 4.0f, 10));
+
 	ToolMaterial i = null;
 	
 	@Mod.EventBusSubscriber(modid = DungeonMod.MODID)
@@ -46,6 +49,8 @@ public class ModItems {
 			{
 				registry.register(item);
 				ITEM_SET.add(item);
+				System.out.println(item.getRegistryName());
+				ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(DungeonMod.MODID + ":" + item.getRegistryName().toString().replace("dungeonmod:", ""), "inventory"));
 			}
 			
 		}

@@ -18,9 +18,9 @@ public class SwordItem extends ItemSword {
 		
 		setCreativeTab(CreativeTabs.COMBAT);
 
+		
+		
 		ModItems.ITEMS.add(this);
-		ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(DungeonMod.MODID + ":" + name, "inventory"));
-		// TODO Auto-generated constructor stub
 	}
 
 }
