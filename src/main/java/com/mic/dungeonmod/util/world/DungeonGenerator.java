@@ -364,15 +364,7 @@ public class DungeonGenerator implements IWorldGenerator {
 					if (debug)
 						System.out.println("Ending.");
 
-					switch (random.nextInt(5)) {
-					case 0:
-					case 1:
-					case 2:
-					case 3:
-						template = world.getStructureTemplateManager().getTemplate(server,
-								end.get(random.nextInt(end.size())));
-						break;
-					case 4:
+					if (random.nextInt(10) == 0) {
 						template = world.getStructureTemplateManager().getTemplate(server, DOWNSTEP);
 						copyPos = copyPos.add(0, -6, 0);
 						rooms.add(copyPos);
@@ -385,8 +377,10 @@ public class DungeonGenerator implements IWorldGenerator {
 						else if (direction == 4)
 							direction = 2;
 						branch(world, random, pos.add(0, -6, 0), direction, length, corners);
-						break;
 
+					} else {
+						template = world.getStructureTemplateManager().getTemplate(server,
+								end.get(random.nextInt(end.size())));
 					}
 
 				} else if (choice < (chances.get("hallway") + chances.get("end") + chances.get("corner_left"))) {

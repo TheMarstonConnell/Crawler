@@ -50,7 +50,7 @@ public class DungeonMod
     @SidedProxy(clientSide = DungeonMod.CLIENT_PROXY_CLASS, serverSide = DungeonMod.COMMON_PROXY_CLASS)
 	public static CommonProxy proxy;
     
-	public static final ModTab dungeonmodTab = new ModTab();    
+//	public static final ModTab dungeonmodTab = new ModTab();    
     
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)

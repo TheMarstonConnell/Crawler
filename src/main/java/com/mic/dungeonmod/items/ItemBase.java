@@ -13,7 +13,7 @@ public class ItemBase extends Item{
 		setUnlocalizedName(name);
 		setRegistryName(name);
 		
-		setCreativeTab(DungeonMod.dungeonmodTab);
+//		setCreativeTab(DungeonMod.dungeonmodTab);
 
 		ModItems.ITEMS.add(this);
 		ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(DungeonMod.MODID + ":" + name, "inventory"));
