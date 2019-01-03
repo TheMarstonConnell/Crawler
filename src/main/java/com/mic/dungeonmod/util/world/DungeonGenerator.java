@@ -197,7 +197,7 @@ public class DungeonGenerator implements IWorldGenerator {
 				template = world.getStructureTemplateManager().getTemplate(server, STAIRS);
 
 				int i = 0;
-				while (!world.getBlockState(pos.add(-3, 6 + i, -3)).getBlock().equals(Blocks.AIR)) {
+				while (!world.getBlockState(pos.add(-3, 6 + i, -3)).getBlock().equals(Blocks.AIR) || pos.getY() < 62) {
 					template.addBlocksToWorld(world, pos.add(-3, 6 + i, -3), settings); // centers placement
 					i += 6;
 				}
