@@ -63,7 +63,7 @@ public class DungeonGenerator implements IWorldGenerator {
 		chances.put("end", 15);
 		chances.put("corner_left", 10);
 		chances.put("corner_right", 10);
-		chances.put("t_split", 6);
+		chances.put("t_split", 8);
 
 		InputStream stream = this.getClass().getClassLoader()
 				.getResourceAsStream("assets/dungeonmod/structures/dungeon/center");
@@ -198,7 +198,7 @@ public class DungeonGenerator implements IWorldGenerator {
 
 				int i = 0;
 				// || pos.getY() < 62
-				while ((!world.getBlockState(pos.add(-3, 6 + i, -3)).getBlock().equals(Blocks.AIR)) && (pos.add(-3, 6 + i, -3).getY() > 62)) {
+				while ((!world.getBlockState(pos.add(-3, 6 + i, -3)).getBlock().equals(Blocks.AIR)) && (pos.add(-3, 6 + i, -3).getY() < 62)) {
 					template.addBlocksToWorld(world, pos.add(-3, 6 + i, -3), settings); // centers placement
 					i += 6;
 				}
@@ -365,7 +365,7 @@ public class DungeonGenerator implements IWorldGenerator {
 					if (debug)
 						System.out.println("Ending.");
 
-					if (random.nextInt(14) == 0) {
+					if (random.nextInt(12) == 0) {
 						template = world.getStructureTemplateManager().getTemplate(server, DOWNSTEP);
 						copyPos = copyPos.add(0, -6, 0);
 						rooms.add(copyPos);
