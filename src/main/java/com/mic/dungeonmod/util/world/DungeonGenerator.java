@@ -368,68 +368,14 @@ public class DungeonGenerator implements IWorldGenerator {
 					choice = 4;
 				}
 
-				if (choice < chances.get("hallway")) {
-					if (debug)
-						System.out.println("Hallway");
-					template = world.getStructureTemplateManager().getTemplate(server,
-							hallway.get(random.nextInt(hallway.size())));
-
-					branch(world, random, pos, direction, length + 1, corners);
-				} else if (choice < (chances.get("hallway") + chances.get("end"))) {
-					if (debug)
-						System.out.println("Ending.");
-
-					if (random.nextInt(12) == 0) {
-						template = world.getStructureTemplateManager().getTemplate(server, DOWNSTEP);
-						copyPos = copyPos.add(0, -6, 0);
-						rooms.add(copyPos);
-						if (direction == 1)
-							direction = 3;
-						else if (direction == 3)
-							direction = 1;
-						else if (direction == 2)
-							direction = 4;
-						else if (direction == 4)
-							direction = 2;
-						branch(world, random, pos.add(0, -6, 0), direction, length, corners);
-
-					} else {
-						template = world.getStructureTemplateManager().getTemplate(server,
-								end.get(random.nextInt(end.size())));
-					}
-
-				} else if (choice < (chances.get("hallway") + chances.get("end") + chances.get("corner_left"))) {
-					if (debug)
-						System.out.println("Right Corner.");
-					template = world.getStructureTemplateManager().getTemplate(server,
-							corner_right.get(random.nextInt(corner_right.size())));
-					// turnChange = 1;
-					// corners = corners + 1;
-					branch(world, random, pos, direction + 1, length + 1, corners + 1);
-				} else if (choice < (chances.get("hallway") + chances.get("end") + chances.get("corner_left")
-						+ chances.get("corner_right"))) {
-					if (debug)
-						System.out.println("Left Corner.");
-					template = world.getStructureTemplateManager().getTemplate(server,
-							corner_left.get(random.nextInt(corner_left.size())));
-					// turnChange = -1;
-					// corners = corners - 1;
-					branch(world, random, pos, direction - 1, length + 1, corners - 1);
-
-				} else if (choice < (chances.get("hallway") + chances.get("end") + chances.get("corner_left")
-						+ chances.get("corner_right") + chances.get("t_split"))) {
-					if (debug)
-						System.out.println("T Split");
-					template = world.getStructureTemplateManager().getTemplate(server,
-							t_split.get(random.nextInt(t_split.size())));
-					// turnChange = -1;
-					// corners = corners - 1;
-					branch(world, random, pos, direction - 1, length + 1, corners - 1);
-					branch(world, random, pos, direction + 1, length + 1, corners + 1);
-				} else if (choice < (chances.get("hallway") + chances.get("end") + chances.get("corner_left")
-						+ chances.get("corner_right") + chances.get("t_split") + chances.get("threeway"))) {
-//					if (debug)
-						System.out.println("Threeway");
+				// if(length == -1) {
+				// choice = (chances.get("hallway") + chances.get("end") +
+				// chances.get("corner_left")
+				// + chances.get("corner_right") + chances.get("t_split") +
+				// chances.get("threeway")) + 1;
+				// }
+				// length = 0;
+				if (length == -1) {
 					template = world.getStructureTemplateManager().getTemplate(server,
 							threeway.get(random.nextInt(threeway.size())));
 					// turnChange = -1;
@@ -437,8 +383,78 @@ public class DungeonGenerator implements IWorldGenerator {
 					branch(world, random, pos, direction - 1, length + 1, corners - 1);
 					branch(world, random, pos, direction, length + 1, corners);
 					branch(world, random, pos, direction + 1, length + 1, corners + 1);
-				}
+				} else {
+					if (choice < chances.get("hallway")) {
+						if (debug)
+							System.out.println("Hallway");
+						template = world.getStructureTemplateManager().getTemplate(server,
+								hallway.get(random.nextInt(hallway.size())));
 
+						branch(world, random, pos, direction, length + 1, corners);
+					} else if (choice < (chances.get("hallway") + chances.get("end"))) {
+						if (debug)
+							System.out.println("Ending.");
+
+						if (random.nextInt(10) == 0) {
+							template = world.getStructureTemplateManager().getTemplate(server, DOWNSTEP);
+							copyPos = copyPos.add(0, -6, 0);
+							rooms.add(copyPos);
+							if (direction == 1)
+								direction = 3;
+							else if (direction == 3)
+								direction = 1;
+							else if (direction == 2)
+								direction = 4;
+							else if (direction == 4)
+								direction = 2;
+							branch(world, random, pos.add(0, -6, 0), direction, -1, corners);
+
+						} else {
+							template = world.getStructureTemplateManager().getTemplate(server,
+									end.get(random.nextInt(end.size())));
+						}
+
+					} else if (choice < (chances.get("hallway") + chances.get("end") + chances.get("corner_left"))) {
+						if (debug)
+							System.out.println("Right Corner.");
+						template = world.getStructureTemplateManager().getTemplate(server,
+								corner_right.get(random.nextInt(corner_right.size())));
+						// turnChange = 1;
+						// corners = corners + 1;
+						branch(world, random, pos, direction + 1, length + 1, corners + 1);
+					} else if (choice < (chances.get("hallway") + chances.get("end") + chances.get("corner_left")
+							+ chances.get("corner_right"))) {
+						if (debug)
+							System.out.println("Left Corner.");
+						template = world.getStructureTemplateManager().getTemplate(server,
+								corner_left.get(random.nextInt(corner_left.size())));
+						// turnChange = -1;
+						// corners = corners - 1;
+						branch(world, random, pos, direction - 1, length + 1, corners - 1);
+
+					} else if (choice < (chances.get("hallway") + chances.get("end") + chances.get("corner_left")
+							+ chances.get("corner_right") + chances.get("t_split"))) {
+						if (debug)
+							System.out.println("T Split");
+						template = world.getStructureTemplateManager().getTemplate(server,
+								t_split.get(random.nextInt(t_split.size())));
+						// turnChange = -1;
+						// corners = corners - 1;
+						branch(world, random, pos, direction - 1, length + 1, corners - 1);
+						branch(world, random, pos, direction + 1, length + 1, corners + 1);
+					} else if (choice < (chances.get("hallway") + chances.get("end") + chances.get("corner_left")
+							+ chances.get("corner_right") + chances.get("t_split") + chances.get("threeway"))) {
+						if (debug)
+							System.out.println("Threeway");
+						template = world.getStructureTemplateManager().getTemplate(server,
+								threeway.get(random.nextInt(threeway.size())));
+						// turnChange = -1;
+						// corners = corners - 1;
+						branch(world, random, pos, direction - 1, length + 1, corners - 1);
+						branch(world, random, pos, direction, length + 1, corners);
+						branch(world, random, pos, direction + 1, length + 1, corners + 1);
+					}
+				}
 				template.addBlocksToWorld(world, copyPos, settings);
 
 				rooms.add(pos);
