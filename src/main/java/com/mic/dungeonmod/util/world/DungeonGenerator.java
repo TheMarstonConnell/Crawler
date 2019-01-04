@@ -335,17 +335,35 @@ public class DungeonGenerator implements IWorldGenerator {
 					settings.setRotation(Rotation.COUNTERCLOCKWISE_90);
 					copyPos = pos.add(-4, 0, 4);
 
-					if (rooms.contains(pos.add(0, 0, -8))) {
+					if(world.getBlockState(pos).getBlock().equals(Blocks.STONEBRICK)) {
+						return;
+					}
+					
+//					if (rooms.contains(pos.add(0, 0, -8))) {
+//
+//						choice = random.nextInt(2) + 4;
+//					}
+//
+//					if (rooms.contains(pos.add(8, 0, 0))) {
+//						choice = 5;
+//						if (rooms.contains(pos.add(-8, 0, 0))) {
+//							choice = 3;
+//						}
+//					} else if (rooms.contains(pos.add(-8, 0, 0))) {
+//						choice = 4;
+//					}
+					
+					if (world.getBlockState(pos.add(0, 0, -8)).getBlock().equals(Blocks.STONEBRICK)) {
 
 						choice = random.nextInt(2) + 4;
 					}
 
-					if (rooms.contains(pos.add(8, 0, 0))) {
+					if (world.getBlockState(pos.add(8, 0, 0)).getBlock().equals(Blocks.STONEBRICK)) {
 						choice = 5;
-						if (rooms.contains(pos.add(-8, 0, 0))) {
+						if (world.getBlockState(pos.add(-8, 0, 0)).getBlock().equals(Blocks.STONEBRICK)) {
 							choice = 3;
 						}
-					} else if (rooms.contains(pos.add(-8, 0, 0))) {
+					} else if (world.getBlockState(pos.add(-8, 0, 0)).getBlock().equals(Blocks.STONEBRICK)) {
 						choice = 4;
 					}
 
@@ -357,15 +375,15 @@ public class DungeonGenerator implements IWorldGenerator {
 					pos = pos.add(8, 0, 0);
 					copyPos = pos.add(-4, 0, -4);
 
-					if (rooms.contains(pos.add(8, 0, 0))) {
+					if (world.getBlockState(pos.add(8, 0, 0)).getBlock().equals(Blocks.STONEBRICK)) {
 						choice = random.nextInt(2) + 4;
 					}
-					if (rooms.contains(pos.add(0, 0, -8))) {
+					if (world.getBlockState(pos.add(0, 0, -8)).getBlock().equals(Blocks.STONEBRICK)) {
 						choice = 5;
-						if (rooms.contains(pos.add(0, 0, 8))) {
+						if (world.getBlockState(pos.add(0, 0, 8)).getBlock().equals(Blocks.STONEBRICK)) {
 							choice = 3;
 						}
-					} else if (rooms.contains(pos.add(0, 0, 8))) {
+					} else if (world.getBlockState(pos.add(0, 0, 8)).getBlock().equals(Blocks.STONEBRICK)) {
 						choice = 4;
 					}
 
@@ -378,16 +396,16 @@ public class DungeonGenerator implements IWorldGenerator {
 					settings.setRotation(Rotation.CLOCKWISE_90);
 					copyPos = pos.add(4, 0, -4);
 
-					if (rooms.contains(pos.add(0, 0, 8))) {
+					if (world.getBlockState(pos.add(0, 0, 8)).getBlock().equals(Blocks.STONEBRICK)) {
 						choice = random.nextInt(2) + 4;
 					}
 
-					if (rooms.contains(pos.add(8, 0, 0))) {
+					if (world.getBlockState(pos.add(8, 0, 0)).getBlock().equals(Blocks.STONEBRICK)) {
 						choice = 4;
-						if (rooms.contains(pos.add(-8, 0, 0))) {
+						if (world.getBlockState(pos.add(-8, 0, 0)).getBlock().equals(Blocks.STONEBRICK)) {
 							choice = 3;
 						}
-					} else if (rooms.contains(pos.add(-8, 0, 0))) {
+					} else if (world.getBlockState(pos.add(-8, 0, 0)).getBlock().equals(Blocks.STONEBRICK)) {
 						choice = 5;
 					}
 
@@ -401,16 +419,16 @@ public class DungeonGenerator implements IWorldGenerator {
 
 					copyPos = pos.add(4, 0, 4);
 
-					if (rooms.contains(pos.add(-8, 0, 0))) {
+					if (world.getBlockState(pos.add(-8, 0, 0)).getBlock().equals(Blocks.STONEBRICK)) {
 						choice = random.nextInt(2) + 4;
 					}
 
-					if (rooms.contains(pos.add(0, 0, -8))) {
+					if (world.getBlockState(pos.add(0, 0, -8)).getBlock().equals(Blocks.STONEBRICK)) {
 						choice = 4;
-						if (rooms.contains(pos.add(0, 0, 8))) {
+						if (world.getBlockState(pos.add(0, 0, 8)).getBlock().equals(Blocks.STONEBRICK)) {
 							choice = 3;
 						}
-					} else if (rooms.contains(pos.add(0, 0, 8))) {
+					} else if (world.getBlockState(pos.add(0, 0, 8)).getBlock().equals(Blocks.STONEBRICK)) {
 						choice = 5;
 					}
 
@@ -450,7 +468,7 @@ public class DungeonGenerator implements IWorldGenerator {
 							System.out.println("Hallway");
 						
 						int a = random.nextInt(hallway.size());
-						System.out.println(a);
+//						System.out.println(a);
 						template = world.getStructureTemplateManager().getTemplate(server,
 								hallway.get(a));
 
