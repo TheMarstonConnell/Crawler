@@ -1,6 +1,7 @@
 package com.mic.dungeonmod.util.handlers;
 
 import com.mic.dungeonmod.DungeonMod;
+import com.mic.dungeonmod.command.GenCommand;
 import com.mic.dungeonmod.command.LoadCommand;
 import com.mic.dungeonmod.init.ModItems;
 
@@ -43,6 +44,7 @@ public class RegistryHandler {
 
 	public static void serverRegistries(FMLServerStartingEvent event) {
 		event.registerServerCommand(new LoadCommand());
+		event.registerServerCommand(new GenCommand());
 
 	}
 
