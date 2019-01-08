@@ -44,7 +44,7 @@ public class RegistryHandler {
 
 	public static void serverRegistries(FMLServerStartingEvent event) {
 		event.registerServerCommand(new LoadCommand());
-		event.registerServerCommand(new GenCommand());
+//		event.registerServerCommand(new GenCommand());
 
 	}
 

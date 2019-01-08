@@ -28,6 +28,7 @@ import com.mic.dungeonmod.proxy.CommonProxy;
 import com.mic.dungeonmod.util.ModTab;
 import com.mic.dungeonmod.util.handlers.RegistryHandler;
 import com.mic.dungeonmod.util.world.DungeonGenerator;
+import com.mic.dungeonmod.util.world.TieredDungeonGenerator;
 
 @Mod(modid = DungeonMod.MODID, name = DungeonMod.NAME, version = DungeonMod.VERSION)
 public class DungeonMod
@@ -62,7 +63,7 @@ public class DungeonMod
 		proxy.preInit(event);
 		LootTableList.register(new ResourceLocation("dungeonmod", "chests/dungeon_chest"));
 		LootTableList.register(new ResourceLocation("dungeonmod", "chests/treasure_chest"));
-		GameRegistry.registerWorldGenerator(new DungeonGenerator(), 0);
+		GameRegistry.registerWorldGenerator(new TieredDungeonGenerator(), 0);
     }
 
     @EventHandler
