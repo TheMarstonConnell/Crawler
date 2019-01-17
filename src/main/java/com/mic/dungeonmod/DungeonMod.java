@@ -63,7 +63,7 @@ public class DungeonMod
 		proxy.preInit(event);
 		LootTableList.register(new ResourceLocation("dungeonmod", "chests/dungeon_chest"));
 		LootTableList.register(new ResourceLocation("dungeonmod", "chests/treasure_chest"));
-		GameRegistry.registerWorldGenerator(new TieredDungeonGenerator(), 0);
+		GameRegistry.registerWorldGenerator(new DungeonGenerator(), 0);
     }
 
     @EventHandler

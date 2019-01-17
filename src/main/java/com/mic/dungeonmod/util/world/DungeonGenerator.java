@@ -601,6 +601,8 @@ public class DungeonGenerator implements IWorldGenerator {
 		if (random.nextInt(10000) > ConfigHandler.dungeonChance) {
 			return;
 		}
+		
+		
 
 		WorldServer sWorld = (WorldServer) world;
 		int x = chunkX * 16 + random.nextInt(16);
@@ -613,7 +615,7 @@ public class DungeonGenerator implements IWorldGenerator {
 
 		// no spawning in oceans
 		Biome biome = world.getBiomeForCoordsBody(xzPos);
-		if (!(biome == Biomes.OCEAN || biome == Biomes.DEEP_OCEAN || biome == Biomes.BEACH || biome == Biomes.COLD_BEACH
+		if (!(biome == Biomes.HELL || biome == Biomes.SKY || biome == Biomes.OCEAN || biome == Biomes.DEEP_OCEAN || biome == Biomes.BEACH || biome == Biomes.COLD_BEACH
 				|| biome == Biomes.STONE_BEACH || biome == Biomes.FROZEN_OCEAN)) {
 			dungeon.generateDungeon(sWorld, random, dungeon.getTopBlock(world, basePos, random));
 		}
