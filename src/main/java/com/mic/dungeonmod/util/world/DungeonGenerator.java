@@ -300,10 +300,10 @@ public class DungeonGenerator implements IWorldGenerator {
 				template.addBlocksToWorld(world, pos.add(-11, 6 + i, -11), settings); // centers placement
 
 				// creates branches for each door
-				branch(world, random, pos, 1, 0, 0); // north
-				branch(world, random, pos, 2, 0, 0); // east
-				branch(world, random, pos, 3, 0, 0); // south
-				branch(world, random, pos, 4, 0, 0); // west
+				branch(world, random, pos, 1, 0, 0, 0); // north
+				branch(world, random, pos, 2, 0, 0, 0); // east
+				branch(world, random, pos, 3, 0, 0, 0); // south
+				branch(world, random, pos, 4, 0, 0, 0); // west
 
 			}
 
@@ -315,7 +315,7 @@ public class DungeonGenerator implements IWorldGenerator {
 			 * @param pos
 			 * @param direction
 			 */
-			public void branch(WorldServer world, Random random, BlockPos pos, int direction, int length, int corners) {
+			public void branch(WorldServer world, Random random, BlockPos pos, int direction, int length, int corners, int levels) {
 				if (debug)
 					System.out.println("Branching...");
 
@@ -476,9 +476,9 @@ public class DungeonGenerator implements IWorldGenerator {
 							threeway.get(random.nextInt(threeway.size())));
 					// turnChange = -1;
 					// corners = corners - 1;
-					branch(world, random, pos, direction - 1, length + 1, corners - 1);
-					branch(world, random, pos, direction, length + 1, corners);
-					branch(world, random, pos, direction + 1, length + 1, corners + 1);
+					branch(world, random, pos, direction - 1, length + 1, corners - 1, levels);
+					branch(world, random, pos, direction, length + 1, corners, levels);
+					branch(world, random, pos, direction + 1, length + 1, corners + 1, levels);
 				} else {
 					if (choice < chances.get("hallway")) {
 						if (debug)
@@ -488,12 +488,12 @@ public class DungeonGenerator implements IWorldGenerator {
 						// System.out.println(a);
 						template = world.getStructureTemplateManager().getTemplate(server, hallway.get(a));
 
-						branch(world, random, pos, direction, length + 1, corners);
+						branch(world, random, pos, direction, length + 1, corners, levels);
 					} else if (choice < (chances.get("hallway") + chances.get("end"))) {
 						if (debug)
 							System.out.println("Ending.");
 
-						if (random.nextInt(10) == 0) {
+						if (random.nextInt(10) == 0 && levels < 4) {
 							template = world.getStructureTemplateManager().getTemplate(server, DOWNSTEP);
 							copyPos = copyPos.add(0, -6, 0);
 							rooms.add(copyPos);
@@ -505,7 +505,7 @@ public class DungeonGenerator implements IWorldGenerator {
 								direction = 4;
 							else if (direction == 4)
 								direction = 2;
-							branch(world, random, pos.add(0, -6, 0), direction, -1, corners);
+							branch(world, random, pos.add(0, -6, 0), direction, -1, corners, levels + 1);
 
 						} else {
 							template = world.getStructureTemplateManager().getTemplate(server,
@@ -519,7 +519,7 @@ public class DungeonGenerator implements IWorldGenerator {
 								corner_right.get(random.nextInt(corner_right.size())));
 						// turnChange = 1;
 						// corners = corners + 1;
-						branch(world, random, pos, direction + 1, length + 1, corners + 1);
+						branch(world, random, pos, direction + 1, length + 1, corners + 1, levels);
 					} else if (choice < (chances.get("hallway") + chances.get("end") + chances.get("corner_left")
 							+ chances.get("corner_right"))) {
 						if (debug)
@@ -528,7 +528,7 @@ public class DungeonGenerator implements IWorldGenerator {
 								corner_left.get(random.nextInt(corner_left.size())));
 						// turnChange = -1;
 						// corners = corners - 1;
-						branch(world, random, pos, direction - 1, length + 1, corners - 1);
+						branch(world, random, pos, direction - 1, length + 1, corners - 1, levels);
 
 					} else if (choice < (chances.get("hallway") + chances.get("end") + chances.get("corner_left")
 							+ chances.get("corner_right") + chances.get("t_split"))) {
@@ -538,8 +538,8 @@ public class DungeonGenerator implements IWorldGenerator {
 								t_split.get(random.nextInt(t_split.size())));
 						// turnChange = -1;
 						// corners = corners - 1;
-						branch(world, random, pos, direction - 1, length + 1, corners - 1);
-						branch(world, random, pos, direction + 1, length + 1, corners + 1);
+						branch(world, random, pos, direction - 1, length + 1, corners - 1, levels);
+						branch(world, random, pos, direction + 1, length + 1, corners + 1, levels);
 					} else if (choice < (chances.get("hallway") + chances.get("end") + chances.get("corner_left")
 							+ chances.get("corner_right") + chances.get("t_split") + chances.get("threeway"))) {
 						if (debug)
@@ -548,9 +548,9 @@ public class DungeonGenerator implements IWorldGenerator {
 								threeway.get(random.nextInt(threeway.size())));
 						// turnChange = -1;
 						// corners = corners - 1;
-						branch(world, random, pos, direction - 1, length + 1, corners - 1);
-						branch(world, random, pos, direction, length + 1, corners);
-						branch(world, random, pos, direction + 1, length + 1, corners + 1);
+						branch(world, random, pos, direction - 1, length + 1, corners - 1, levels);
+						branch(world, random, pos, direction, length + 1, corners, levels);
+						branch(world, random, pos, direction + 1, length + 1, corners + 1, levels);
 					} else {
 						System.out.println("Failed");
 					}
